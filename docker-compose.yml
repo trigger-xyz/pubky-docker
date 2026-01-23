@@ -150,6 +150,31 @@ services:
     ports:
       - 4200:4200
 
+  # 5. Franky Social UI (replacement for pubky-app)
+  franky:
+    container_name: franky
+    image: "${REGISTRY:-synonymdev}/franky:${FRANKY_TAG:-latest}"
+    build:
+      context: ../franky
+      args:
+        NEXT_PUBLIC_HOMESERVER: ${NEXT_PUBLIC_HOMESERVER:-8pinxxgqs41n4aididenw5apqp1urfmzdztr8jt4abrkdn435ewo}
+        NEXT_PUBLIC_NEXUS_URL: ${NEXT_PUBLIC_NEXUS_URL:-http://localhost:8080}
+        NEXT_PUBLIC_TESTNET: ${NEXT_PUBLIC_TESTNET:-true}
+        NEXT_PUBLIC_DEFAULT_HTTP_RELAY: ${HTTP_RELAY:-http://localhost:15412/link/}
+        NEXT_PUBLIC_MODERATION_ID: ${NEXT_PUBLIC_MODERATION_ID:-euwmq57zefw5ynnkhh37b3gcmhs7g3cptdbw1doaxj1pbmzp3wro}
+        NEXT_PUBLIC_MODERATED_TAGS: ${NEXT_PUBLIC_MODERATED_TAGS:-["nudity"]}
+        BASE_URL_SUPPORT: ${BASE_URL_SUPPORT:-https://support.pubky.app}
+        SUPPORT_API_ACCESS_TOKEN: ${SUPPORT_API_ACCESS_TOKEN:-}
+        SUPPORT_ACCOUNT_ID: ${SUPPORT_ACCOUNT_ID:-1}
+        SUPPORT_FEEDBACK_INBOX_ID: ${SUPPORT_FEEDBACK_INBOX_ID:-0}
+    env_file:
+      - ./.env
+    networks:
+      pubky:
+        ipv4_address: "172.18.0.8"
+    ports:
+      - 3000:3000
+
 networks:
   pubky:
     driver: bridge
