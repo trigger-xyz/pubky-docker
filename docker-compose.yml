@@ -153,7 +153,7 @@ services:
   # 5. Franky Social UI (replacement for pubky-app)
   franky:
     container_name: franky
-    image: "${REGISTRY:-synonymdev}/franky:${FRANKY_TAG:-latest}"
+    image: "${REGISTRY:-synonymsoft}/franky-${NETWORK:-testnet}:${FRANKY_TAG:-latest}"
     build:
       context: ../franky
       args:
